@@ -115,7 +115,9 @@ define([
 					response.total = evt.total;
 					dfd.progress(response);
 				} else if(response.xhr.readyState === 3){
-					response.loaded = evt.position;
+					// Fix taken from Dojo 1.11.0:
+					// https://github.com/dojo/dojo/blob/1.11.0/request/xhr.js#L134
+					response.loaded = ('loaded' in evt) ? evt.loaded : evt.position;
 					dfd.progress(response);
 				}
 			}
